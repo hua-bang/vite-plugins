@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import AutoTrackerComponent from '../lib/auto-logger/component';
 
 function App() {
   const [count, setCount] = useState<number>(0)
@@ -22,11 +21,9 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <AutoTrackerComponent>
-          <button data-report-data={JSON.stringify({ count })} data-log-id="add-button" data-event-name="add_button_click" onClick={handleClick}>
-            count is {count}
-          </button>
-        </AutoTrackerComponent>
+        <button data-report-data={JSON.stringify({ count })} data-log-id="add-button" data-event-name="add_button_click" onClick={handleClick}>
+          count is {count}
+        </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
