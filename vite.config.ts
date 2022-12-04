@@ -6,7 +6,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    autoTracker({ libName: 'auto-logger', libPath: path.resolve(__dirname, 'lib/auto-logger') }), 
+    autoTracker({ libName: 'AutoLogger', libPath: path.resolve(__dirname, 'lib/auto-logger')}), 
     react()
   ]
 })

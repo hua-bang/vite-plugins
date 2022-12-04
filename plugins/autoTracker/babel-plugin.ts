@@ -59,16 +59,17 @@ export default function (babel, options) {
           path.node.body.unshift(
             t.importDeclaration(
               [t.importDefaultSpecifier(t.identifier(loggerId))],
-              t.stringLiteral(libPath),
+              t.stringLiteral(`${libPath}/component`),
             ),
           );
           state.loggerNodeName = loggerId;
         }
       },
       JSXOpeningElement(path, state) {
-      	if (!state.loggerNodeName) {
+      	if (!state.loggerNodeName || path.hasTracked) {
           return;
         }
+        path.hasTracked = true;
         const { attributes } = path.node;
 
         const hasLogIdentification = checkHasLogIdentification(
@@ -77,43 +78,20 @@ export default function (babel, options) {
         if (!hasLogIdentification) {
           return;
         }
-
-        const onClickNode = findAttributeNode(
-          attributes,
-          'onClick',
-        );
-
-        if (!onClickNode) {
-          path.pushContainer(
-            'attributes',
-            t.jsxAttribute(
-              t.jsxIdentifier('onClick'),
-              t.jsxExpressionContainer(
-                template.expression(`${state.loggerNodeName}.reportClick`)(),
-              ),
-            ),
-          );
-        } else {
-          const { value } = onClickNode;
-          const { expression: onClickFNNode } =
-            value;
-
-          const newTapFNNode = t.callExpression(
-            t.callExpression(
-              t.memberExpression(
-                t.memberExpression(
-                  t.identifier(state.loggerNodeName),
-                  t.identifier('generateReportClickFn'),
-                ),
-                t.identifier('bind'),
-              ),
-              [t.thisExpression()],
-            ),
-            [onClickFNNode],
-          );
-          (onClickNode.value).expression =
-            newTapFNNode;
-        }
+        const jsxElementPath = path.parentPath;
+        const wrapperNode = t.jsxElement(
+          t.jsxOpeningElement(
+            t.jsxIdentifier(state.loggerNodeName),
+            []
+          ),
+          t.jsxClosingElement(
+            t.jsxIdentifier(state.loggerNodeName),
+          ),
+          [
+            jsxElementPath.node
+          ]
+        ); 
+        jsxElementPath.replaceWith(wrapperNode);
       }
     }
   };

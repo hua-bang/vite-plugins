@@ -21,7 +21,12 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button data-report-data={JSON.stringify({ count })} data-log-id="add-button" data-event-name="add_button_click" onClick={handleClick}>
+        <button 
+          data-report-data={JSON.stringify({ count })} 
+          data-log-id="add-button" 
+          data-event-name="add_button_click" 
+          onClick={handleClick}
+        >
           count is {count}
         </button>
         <p>

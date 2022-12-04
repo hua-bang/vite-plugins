@@ -3,6 +3,8 @@ import autoTrackerBabelPlugin from './babel-plugin';
 
 interface AutoTrackerPluginOptions {
   libPath: string;
+  libName: string;
+  useComponent?: boolean;
 }
 
 const fileRegex = /\.(tsx)$/;
