@@ -1,0 +1,31 @@
+[
+  {
+    "interfaceName": "User",
+    "data": {
+      "user": "hug",
+      "age": 18,
+      "male": true,
+      "role": {
+        "name": "role",
+        "expire": true
+      },
+      "$schema": "http://json-schema.org/draft-04/schema"
+    }
+  },
+  {
+    "interfaceName": "Test",
+    "data": {
+      "name": "hug",
+      "age": 18,
+      "userInfo": {
+        "id": "xxxxxx",
+        "uId": 123,
+        "roles": [
+          {
+            "name": "admin"
+          }
+        ]
+      }
+    }
+  }
+]
